@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<a href="{{ url_for('menu') }}">menu</a>
+  <h1>Просмотреть загруженную БП</h1>
+<form action="{{ url_for('LookBP') }}" method=post>
+  <p>Просмотреть БП</p>
+  <p><input name=LookBP type=submit value='Просмотр БП'></p>
+</form>
+
+
+{% if entries %}
+  <table border="1">
+    {% for str in entries %}
+	<tr>
+	  {% for i in str %}
+	    <td>{{ i }}</td>
+	  {% endfor %}
+    </tr>
+	{% endfor %}
+  </table>
+  {% endif %}
+{% endblock %}

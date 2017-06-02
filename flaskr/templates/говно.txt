@@ -1,0 +1,28 @@
+@app.route('/', methods = ['GET', 'POST'])
+def upload_file():
+ if request.method == 'POST':
+  f = request.files['file']
+  kek = request.form['choice']
+  directory=os.walk(app.root_path+'/files',followlinks=False)
+  mas=[]
+  KolCol=0
+  if f and allowed_file(f.filename):
+   f.save(app.root_path + '/files/' + secure_filename(f.filename))
+   MyFile=open('/flaskr/files/'+f.filename, "r")
+   str = MyFile.readline()
+   KolCol=KolColumns(str)
+   MyFile=open('/flaskr/files/'+f.filename, "r")
+   mas=ReadFromStr(MyFile, KolCol)
+   MyFile.close()
+   flash('New file was successfully upload')
+  elif kek!='':
+   MyFile=open('/flaskr/files/'+kek, "r")
+   str = MyFile.readline()
+   KolCol=KolColumns(str)
+   MyFile=open('/flaskr/files/'+kek, "r")
+   mas=ReadFromStr(MyFile, KolCol)
+   MyFile.close()
+   flash('There was read from old file')
+  else:
+   flash('New file was not upload')
+ return render_template('show_entries.html', mas=mas, KolCol=KolCol, directory=directory)

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <a href="{{ url_for('menu') }}">menu</a>
+    <h1>Upload new File</h1>
+    <form action="{{ url_for('upload_file') }}" method=post enctype=multipart/form-data>
+	  <dl>
+        <dd><p><input type=file name=file>
+        <dd><p><input list="KEK" name=choice></p>
+		
+        <datalist id="KEK">
+          {% for d,dirs,files in directory %}
+	        {% for i in files %}
+	          <option>{{ i }}</option>
+	        {% endfor %}
+	      {% endfor %}
+        </datalist>   
+
+        <dd><input name=Upload type=submit value=Загрузить>	
+		{% if BPIsBusy and BPIsBusy=='true' %}
+		  <p>База прецедентов с таким именем существует. Заменить?</p>
+		  <dd><input name=Upload type=submit value=Подтвердить>
+		{% endif %}
+		
+      </dl>
+  </form>
+  
+  {% if entries %}
+  <table border="1">
+    {% for str in entries %}
+	<tr>
+	  {% for i in str %}
+	    <td>{{ i }}</td>
+	  {% endfor %}
+    </tr>
+	{% endfor %}
+  </table>
+  {% endif %}
+{% endblock %}

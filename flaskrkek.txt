@@ -1,0 +1,11 @@
+drop table if exists entries;
+create table entries (
+  id integer primary key autoincrement,
+text0integer not null,
+text1integer not null,
+text2integer not null,
+text3integer not null,
+text4integer not null,
+text5integer not null,
+text6integer not null
+);

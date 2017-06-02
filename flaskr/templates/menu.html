@@ -1,0 +1,12 @@
+<!doctype html>
+<title>Flaskr</title>
+<body></body>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>Flaskr</h1>
+  <div class=metanav></div>
+  
+  <a href="{{ url_for('ShowAddFileTemplate') }}">Создать БП по файлу</a>
+  <a href="{{ url_for('HandLoad') }}">Создание БП вручную</a>
+  <a href="{{ url_for('LookBP') }}">Просмотр творения</a>
+</div>

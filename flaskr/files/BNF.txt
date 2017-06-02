@@ -1,0 +1,50 @@
+<prog>::=<prog header>;<prog block>.
+<prog header>::=Program <prog name>;
+<prog name>::=<id>
+<id>::=<letter>|<id><letter>|<id><digit>
+<letter>::=A|...|Z|a|...|z
+<digit>::=0|...|9
+
+<prog block>::=<dec part><oper part>
+
+<dec part>::=var<dec list>
+<dec list>::=<dec>|<dec list><dec>
+<dec>::=<id list>:<type>;
+<id list>::=<id>|<id list>,<id>
+<type>::=integer|boolean
+
+<oper part>::=begin<stnt list>end
+<stnt list>::=<stnt>|<stnt><stnt list>
+<stnt>::=<AssignOp>|<WriteOp>|<ReadOp>|<IfCond>|<ForCyc>|<proc call>
+
+<assign>::=<id>:=<expr>;
+
+<expr>::=<term>|<expr>+<term>|<expr>-<term>
+<term>::=<factor>|<term>*<factor>|<term>/<factor>
+<factor>::=<id>|<number>|(<expr>)
+<number>::=<numberws>|+<numberws>|-<numberws>
+<numberws>::=<int>|<int>,<int>
+<int>:=<digit>|<digit><int>
+
+<WriteOp>::=Write(<output list>);
+<output list>::=<id list>|"<output text>"|<output list>,<id list>|<output list>,"<output text>"
+<output text>::=<letter>|<digit>|<output text><letter>|<output text><digit>
+
+<ReadOp>::=Read(<id list>);
+
+<IfCond>::=if <bool expr> then <oper>;|<IfCond> else <oper>;
+<bool expr>::=<expr><compare oper><expr>|<bool expr><log oper><bool expr>|not<bool expr>
+<log oper>::=or|and
+<compare oper>::= < | <= | > | >= | = | <>
+
+<ForCyc>::=for<ind expr> do <oper part>;
+<ind expr>::= <id>:=<expr>to<expr>
+
+<proc call>::=<id>();|<id>(<param>);
+<param>::=<id>|<number>|<id><param>|<number><param>
+
+N={}
+T={0..9 a..z A..Z + - * / = > < ; : , " and begin boolean do else end for if integer not or program read then to var write}
+
+
+

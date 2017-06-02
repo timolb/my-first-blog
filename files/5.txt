@@ -1,0 +1,89 @@
+if test "$1" != ""
+then
+
+if test "${1:0:1}" = "-"
+    then
+    znak="-";
+    number="${1:1:$len-1}";
+    else
+    znak="";
+    number=$1;
+    fi
+ 
+
+if [[ ${#number}%3 == 0 ]]
+then
+	i=1
+	for i in ${#number}%3
+	do
+		buf="${number:$len-1:1}"+2*"${number:$len-2:1}"+4*"${number:$len-3:1}"
+		eight=$buf$eight
+	done
+else
+	while (${#number}%3 != 0)
+	do
+		number="0"$number
+	done
+
+	i=1
+	for i in ${#number}%3
+	do
+		buf="${number:$len-1:1}"+2*"${number:$len-2:1}"+4*"${number:$len-3:1}"
+		eight=$buf$eight
+	done
+fi
+
+
+echo "V 8 SS: $znak$eight"
+
+else
+
+while read line;
+do
+echo "Number in 2 SS $line"
+ 
+
+len=${#line}
+if test "${line:0:1}" = "-"
+then
+    znak="-";
+    number="${line:1:$len-1}";
+else 
+    znak="";
+    number=$line;
+fi
+ 
+
+if [[ ${#number}%3 == 0 ]]
+then
+	i=1
+	for i in ${#number}%3
+	do
+		buf="${number:$len-1:1}"+2*"${number:$len-2:1}"+4*"${number:$len-3:1}"
+		eight=$buf$eight
+	done
+else
+	while (${#number}%3 != 0)
+	do
+		number="0"$number
+	done
+
+	i=1
+	for i in ${#number}%3
+	do
+		buf="${number:$len-1:1}"+2*"${number:$len-2:1}"+4*"${number:$len-3:1}"
+		eight=$buf$eight
+	done
+fi
+
+
+
+echo "V 8 SS: $znak$eight"
+
+ 
+done
+fi
+
+
+
+  

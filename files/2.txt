@@ -1,0 +1,47 @@
+int pos = 0, k = 0,  cel;//, drob;
+
+	pos = str.find(",");
+	if (pos == -1) pos = str.find(".");
+	if (pos == -1) pos = str.length();
+
+	if (pos % 3 == 0) cel = pos / 3;
+	else
+	{
+		//cel = pos / 3 + 1;
+		str.insert(0, (pos / 3 + 1) * 3 - pos, '0');
+		pos += (pos / 3 + 1) * 3 - pos;
+	}
+	//drob = str.length() - pos-1;
+/*
+	if (pos == str.length()) drob = 0;
+	else
+		if (drob % 3 == 0) drob = drob / 3;
+		else
+		{
+			drob = drob / 3 + 1;
+			str.insert(str.length(), (drob / 3 + 1) * 3 - drob, '0');
+		}
+		*/
+	if (str.length() - pos - 1 % 3 != 0)
+		str.insert(str.length(), ((str.length() - pos - 1 )/ 3 + 1) * 3 - str.length() + pos + 1, '0');
+
+	char *strout = new char[(str.length() - 1) / 3 + 2];//[cel+drob+2];
+
+	//перевод целой части
+	for (int j = pos - 1; j >= 0; j -= 3, k++)
+		strout[k] = int(str[j] - 48) + int(str[j - 1] - 48) * 2 + int(str[j - 2] - 48) * 4 + 48;
+
+	//if (drob != 0) {strout[k] = ','; k++;}
+	//if (pos != str.length()) { strout[k] = ','; k++; }
+	
+	//перевернем
+	for (int i = 0; i < k/2; i++)
+		swap(strout[i], strout[k-1-i]);
+	if (pos != str.length()-1) { strout[k] = ','; k++; }
+
+	//перевод дробной части
+	for (int j = pos + 1; j < str.length(); j += 3, k++)
+			strout[k] = int(str[j] - 48) * 4 + int(str[j + 1] - 48) * 2  +int(str[j + 2] - 48) + 48;
+
+	strout[k] = '\0';
+	return strout;

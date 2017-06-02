@@ -1,0 +1,76 @@
+
+#!/bin/bash 
+if test "$1" != ""
+then
+echo "Number in  base-10 numeral system: $1"
+ 
+ 
+if [[ "$@" =~ [^0-9\ +-] ]] #проверка всех аргументов на ошибки ввода
+ 
+then
+echo WRONG INPUT
+exit 1
+fi
+len=${#1}
+    if test "${1:0:1}" = "-"
+    then stop=1
+    znak="-";
+    number="${1:1:$len-1}";
+    elif test "${1:0:1}" = "+"
+    then stop=1
+    znak="";
+    number=$1;
+    else stop=0
+    znak="";
+    number=$1;
+    fi
+ 
+  
+while (($number != 0)); do
+        (($(($number%2))==1)) && binary="1"$binary || binary="0"$binary
+        let "count+=1"
+        (($count==4)) && count=0
+        number=$(($number/2))
+done
+ 
+echo "Number in  base-2 numeral system: $znak$binary"
+ 
+else
+#инт. ввод
+while read line;
+do
+echo "Number in  base-10 numeral system: $line"
+ 
+ 
+if [[ "$line" =~ [^0-9\ +-] ]] #проверка всех аргументов на ошибки ввода
+ 
+then
+echo WRONG INPUT
+exit 1
+fi
+len=${#line}
+    if test "${line:0:1}" = "-"
+    then stop=1
+    znak="-";
+    number="${line:1:$len-1}";
+    elif test "${line:0:1}" = "+"
+    then stop=1
+    znak="";
+    number=$line;
+    else stop=0
+    znak="";
+    number=$line;
+    fi
+ 
+unset binary
+while (($number != 0)); do
+        (($(($number%2))==1)) && binary="1"$binary || binary="0"$binary
+        let "count+=1"
+        (($count==4)) && count=0
+        number=$(($number/2))
+done
+ 
+echo "Number in  base-2 numeral system: $znak$binary"
+ 
+done
+fi

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<a href="{{ url_for('menu') }}">menu</a>
+<h1>Создание базы прецедентов вручную</h1>
+<form  action="{{ url_for('BPCheck') }}" method=post>
+  <p>Укажите имя будущей базы прецедентов</p>
+  {% if BPName %}
+    <p><input name=BPName maxlength="20" size="20" value={{BPName}}></p>
+  {% else %}
+    <p><input name=BPName maxlength="20" size="20" value=""></p>
+  {% endif %}
+  
+  <p>Введите число столбцов:</p>
+  <p><input name=KolCol type="number" maxlength="10" size="10" value=""></p>
+  <p><input name=Create type=submit value='Создать БП'></p>
+  
+  {% if BPIsBusy and BPIsBusy=='true' %}
+    <p>База прецедентов с таким именем существует. Заменить?</p>
+    <p><input name=Create type=submit value=Подтвердить></p>
+  {%endif%}
+</form>
+
+
+{% if  FieldNames %}
+  <form action="{{ url_for('add_entry2') }}" method=post enctype=multipart/form-data>
+    {% for i in FieldNames %}
+      <p><input name={{ i }} value=20  maxlength="10" size="10" value=""></p>
+    {% endfor %}
+    <p><input type=submit value=Записать></p>
+  </form>
+{% endif %}
+  
+{% if StrParam!='' and mas  %}
+  <p><input name=proverka value={{mas[2]}}  maxlength="100" size="20" value=""></p>
+{% endif %}
+  
+{% if entries %}
+  <table border="1">
+    {% for str in entries %}
+	  <tr>
+	    {% for i in str %}
+	      <td>{{ i }}</td>
+	    {% endfor %}
+      </tr>
+	{% endfor %}
+  </table>
+{% endif %}
+  
+  
+  
+  
+  
+{% endblock%}
